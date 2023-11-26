@@ -1,0 +1,115 @@
+{% extends 'shared/layout.html' %}
+{% load thumbnail %}
+{% load poll_extras %}
+
+
+{% block title %}
+    فروشگاه سلستیال
+{% endblock %}
+
+{% block content %}
+    <section class="section-b-space tab-layout1 grey-bg ratio_square">
+        <div class="theme-tab">
+            <div class="tab-content-cls">
+                <div class="tab-content active default" style="display: block;">
+                    <div class="container">
+                        <h3 style="font-weight: bold;color: #0a0f16">جدیدترین محصولات</h3>
+                        <hr>
+                        <br>
+                        <div class="row border-row1 grid-5">
+                            {% for product in new_products %}
+                                <div class="box-5">
+                                    <div class="product-box product-full">
+                                        <div class="img-block">
+                                            <a href="{{ product.get_absolute_url }}" class="bg-size">
+                                                {% thumbnail product.images '400x400' crop='center' as im %}
+                                                    <img src="{{ im.url }}" class=" img-fluid bg-img">
+                                                {% endthumbnail %}
+                                            </a>
+                                        </div>
+                                        <div class="product-info">
+                                            <a href="{{ product.get_absolute_url }}">
+                                                <h6>{{ product.title | truncatewords:4 }}</h6></a>
+                                            {% if product.price2 %}
+                                                <h5>{{ product.price2 | three_digits_currency }} تومان</h5>
+                                                <del>{{ product.price1 | three_digits_currency }}</del>
+                                            {% else %}
+                                                <h5>{{ product.price1 | three_digits_currency }} تومان</h5>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-b-space tab-layout1 grey-bg ratio_square">
+        <div class="theme-tab">
+            <div class="tab-content-cls">
+                <div class="tab-content active default" style="display: block;">
+                    <div class="container">
+                        <h3 style="font-weight: bold;color: #0a0f16">تخفیفات ویژه</h3>
+                        <hr>
+                        <br>
+                        <div class="row border-row1 grid-5">
+                            {% for product in offer_products %}
+                                <div class="box-5">
+                                    <div class="product-box product-full">
+                                        <div class="img-block">
+                                            <a href="{{ product.get_absolute_url }}" class="bg-size">
+                                                {% thumbnail product.images '400x400' crop='center' as im %}
+                                                    <img src="{{ im.url }}" class=" img-fluid bg-img">
+                                                {% endthumbnail %}
+                                            </a>
+                                        </div>
+                                        <div class="product-info">
+                                            <a href="{{ product.get_absolute_url }}">
+                                                <h6>{{ product.title | truncatewords:4 }}</h6>
+                                            </a>
+                                            <h5>{{ product.price2 | three_digits_currency }} تومان</h5>
+                                            <del>{{ product.price1 | three_digits_currency }}</del>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="theme-tab">
+                    <div class="tab-content-cls">
+                        <div class="tab-content active default" style="display: block;">
+                            <div class="container">
+                                <h3 style="font-weight: bold;color: #0a0f16">سوالات متداول</h3>
+                                <hr>
+                                <br>
+                                <div class="col-sm-12">
+                                    {% for question in questions %}
+                                        <div class="faq">
+                                            <div class="question">{{ question.question }}</div>
+                                            <div class="answer">{{ question.response }}</div>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+

@@ -1,0 +1,85 @@
+{% extends 'shared/layout.html' %}
+{% load thumbnail %}
+{% load poll_extras %}
+
+
+{% block title %}
+    مشخصات محصول
+{% endblock %}
+
+
+{% block content %}
+    <section>
+        <div class="collection-wrapper ratio_asos">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row product_image_4">
+                            {% for image in product.images_product.all %}
+                                <div class="col-6">
+                                    <div class="bg-size"
+                                         style="background-position: center center; background-repeat: no-repeat; display: block;">
+                                        {% thumbnail image.image '336x429' crop='center' as im %}
+                                            <img src="{{ im.url }}" class="img-fluid  bg-img " style="display: none;">
+                                        {% endthumbnail %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 rtl-text">
+                        <div class="product-right">
+                            <h2>{{ product.title }}</h2>
+                            <h4>
+                                {% if product.price2 %}
+                                    <del>{{ product.price1 | three_digits_currency }} تومان</del>
+                                    <h3>{{ product.price2 | three_digits_currency }} تومان</h3>
+                                {% else %}
+                                    <h3>{{ product.price1 | three_digits_currency }} تومان</h3>
+                                {% endif %}
+                            </h4>
+                            <br>
+                            <label for="">رنگ :</label>
+                            <p>{{ product.color }}</p>
+
+                            <div class="product-description border-product">
+                                <label class="product-title size-text"> اندازه :</label>
+                                <p>{{ product.size }}</p>
+                                <br><br>
+                                <h6 class="product-title">تعداد :</h6>
+                                <div class="qty-box">
+                                    <div class="input-group"><span class="input-group-prepend"><button
+                                            onclick="changeOrderDetail({{ product.id }},'increase')"
+                                            class="btn quantity-left-minus"
+                                            data-type="minus"
+                                            data-field=""><i
+                                            class="ti-angle-left"></i></button> </span>
+                                        <input type="text" name="quantity" class="form-control input-number"
+                                               min="1" value="1" id="product_count">
+                                        <span class="input-group-prepend"><button
+                                                onclick="changeOrderDetail({{ product.id }} , 'decrease')"
+                                                class="btn quantity-right-plus"
+                                                data-type="plus" data-field=""><i
+                                                class="ti-angle-right"></i></button></span></div>
+                                </div>
+                            </div>
+                            <div class="product-buttons">
+                                <button onclick="add_product_to_order({{ product.id }})" data-bs-toggle="modal"
+                                   data-bs-target="#addtocart" class="btn btn-solid">اضافه
+                                    به سبد خرید</button>
+                            </div>
+                            <div class="border-product">
+                                <h6 class="product-title">جزئیات محصول</h6>
+                                <p>
+                                    {{ product.description | safe }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br><br>
+{% endblock %}

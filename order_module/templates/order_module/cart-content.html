@@ -1,0 +1,126 @@
+{% load thumbnail %}
+
+{% if order.orderdetail_set.all %}
+    <section class="breadcrumb-section section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title">
+                        <h2>سبد خرید</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cart-section section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table cart-table table-responsive-xs striped-table">
+                        <thead>
+                        <tr class="table-head">
+                            <th scope="col">تصویر</th>
+                            <th scope="col">نام محصول</th>
+                            <th scope="col">قیمت</th>
+                            <th scope="col">تعداد</th>
+                            <th scope="col">حذف</th>
+                            <th scope="col">مجموع</th>
+                        </tr>
+                        </thead>
+                        {% for detail in order.orderdetail_set.all %}
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <a href="{{ detail.product.get_absolute_url }}">
+                                        {% thumbnail detail.product.images '60x60' crop='center' as im %}
+                                            <img src="{{ im.url }}" alt="">
+                                        {% endthumbnail %}
+                                    </a>
+                                </td>
+                                <td><a href="{{ detail.product.get_absolute_url }}">{{ detail.product.title | truncatewords:3 }}</a>
+                                    <br>
+                                    <div class="mobile-cart-content row">
+                                        <div class="col-xs-3">
+                                            <div class="qty-box">
+                                                <div class="quantity-input">
+                                                    <a onclick="changeOrderDetail({{ detail.id }}, 'decrease')">-</a>
+                                                    <input type="text" value="{{ detail.count }}" min="1">
+                                                    <a onclick="changeOrderDetail({{ detail.id }}, 'increase')">+</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="col-xs-3">
+                                            {% if detail.product.price2 %}
+                                                <h2 class="td-color">{{ detail.product.price2 }} تومان</h2>
+                                            {% else %}
+                                                <h2 class="td-color">{{ detail.product.price1 }} تومان</h2>
+                                            {% endif %}
+                                        </div>
+                                        <br>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color remove-order"><a onclick="removeOrderDetail({{ detail.id }})"
+                                                                    class="icon"><i class="ti-close"></i></a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if detail.product.price2 %}
+                                        <h2>{{ detail.product.price2 }} تومان</h2>
+                                    {% else %}
+                                        <h2>{{ detail.product.price1 }} تومان</h2>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="qty-box">
+                                        <div class="quantity-input">
+                                            <a class="cursor-pointer" onclick="changeOrderDetail({{ detail.id }}, 'decrease')">-</a>
+                                            <input type="text" value="{{ detail.count }}" min="1">
+                                            <a onclick="changeOrderDetail({{ detail.id }}, 'increase')">+</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a onclick="removeOrderDetail({{ detail.id }})" class="icon"><i
+                                            class="ti-close remove-order"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <h2 class="td-color">{{ detail.get_total_price }} تومان</h2></td>
+                            </tr>
+                            </tbody>
+                        {% endfor %}
+
+                    </table>
+                    <table class="table cart-table table-responsive-md">
+                        <tfoot>
+                        <tr>
+                            <br>
+                            <div>جمع فاکتور :</div>
+                            <div>
+                                <h3 style="color: red">{{ sum }} تومان</h3>
+                            </div>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="row cart-buttons">
+                <div class="col-6"><a href="{% url 'checkout-page' %}" class="btn btn-solid">ادامه خرید</a></div>
+            </div>
+        </div>
+    </section>
+{% else %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warning">
+                    <p style="color: #ad2a2a">سبد خرید شما خالی می باشد</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+

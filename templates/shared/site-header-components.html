@@ -1,0 +1,98 @@
+{% load thumbnail %}
+
+<header class="header-1 rtl" dir="rtl">
+    <div class="mobile-fix-header">
+    </div>
+    <div class="container">
+        <div class="row header-content">
+            <div class="col-lg-3 col-6">
+                <div class="left-part">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="right-part rtl">
+                    <p>{{ site_setting.text_header }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row header-content">
+            <div class="col-11">
+                <div class="header-section">
+                    <div class="brand-logo">
+                        <a href="{% url 'home-page' %}">
+                            {% thumbnail site_setting.site_logo '175x53' crop='center' as im %}
+                                <img src="{{ im.url }}" alt="">
+                            {% endthumbnail %}
+                        </a>
+                    </div>
+                    <div class="nav-icon">
+                        <ul>
+                            <li class="onhover-div setting-icon">
+                                <div>
+                                    <a href="{% url 'home-page' %}"><i class="ti-home mobile-icon"></i></a>
+                                </div>
+                            </li>
+
+                            <li class="onhover-div user-icon" dir="rtl">
+                                <a class="user-img" href="{% url 'dashboard-user-page' %}"><img
+                                        src="/static/images/user.png"></a>
+                                <a href="{% url 'dashboard-user-page' %}"><i class="ti-user mobile-icon"></i></a>
+                            </li>
+
+                            <li class="onhover-div cart-icon" dir="rtl">
+                                <a href="{% url 'order-me-page' %}"><img src="/static/images/shopping-cart.png" alt=""
+                                                                         class="cart-image"></a>
+                                <a href="{% url 'order-me-page' %}"><i class="ti-shopping-cart mobile-icon"></i></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-class">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav id="main-nav">
+                        <div class="toggle-nav">
+                            <i class="ti-menu-alt"></i>
+                        </div>
+                        <ul id="main-menu" class="sm pixelstrap sm-horizontal sm-rtl"
+                            data-smartmenus-id="16995094039547773">
+                            <li>
+                                <div class="mobile-back text-end">
+                                    برگشت<i class="fa fa-angle-left ps-2" aria-hidden="true"></i>
+                                </div>
+                            </li>
+                            <li class="icon-cls"><a href="{% url 'home-page' %}"><i class="fa fa-home home-icon"
+                                                                                    aria-hidden="true"></i></a>
+                            </li>
+                            <li><a href="{% url 'product-list' %}" class="has-submenu">همه محصولات<span
+                                    class="sub-arrow"></span></a>
+                            </li>
+                            {% for category in categories %}
+                                <li><a href="{% url 'category-list-object-page' cat=category.url_title %}"
+                                       class="has-submenu">{{ category.title }}<span
+                                        class="sub-arrow"></span></a>
+                                </li>
+                            {% endfor %}
+
+                            {% if request.user.is_authenticated %}
+                                {% if request.user.is_superuser %}
+                                    <li><a href="/admin" class="has-submenu">پنل ادمین<span
+                                            class="sub-arrow"></span></a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+

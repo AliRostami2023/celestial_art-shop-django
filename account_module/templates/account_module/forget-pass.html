@@ -1,0 +1,38 @@
+{% extends 'shared/layout.html' %}
+
+
+{% block title %}
+    فراموشی کلمه عبور
+{% endblock %}
+
+
+{% block content %}
+    <section class="pwd-page section-b-space ">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% if messages %}
+                    <ul style="font-weight: bolder;font-size: 25px;color: #27b747">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }} {% endif %}">
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <div class="col-lg-6 ">
+                    <h4 style="color: #133b74;font-weight: bold;text-align: center">کلمه عبور خود را فراموش کردیده اید ؟</h4>
+                    <form method="post" class="theme-form form-control">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ forget_pass }}
+                            </div>
+                            <button type="submit" class="btn btn-solid">ارسال</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+

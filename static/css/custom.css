@@ -1,0 +1,128 @@
+/*------------------------------------------font site--------------------------------------*/
+
+@font-face {
+    font-family: 'Sahel';
+    src: url('/static/fonts/font_sahel/Sahel.woff') format('woff'),
+    url('/static/fonts/font_sahel/Sahel-Bold.woff') format('woff');
+    font-weight: normal;
+}
+
+body {
+    font-family: 'Sahel', sans-serif;
+}
+
+/*------------------------------------------pagination-product list--------------------------*/
+
+.pagination-custom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination-custom-item {
+    padding: 5px 10px;
+    border: 1px solid #d2d2d2;
+    margin: 0 3px;
+    cursor: pointer;
+    color: #000000;
+    text-decoration: none;
+}
+
+.pagination-custom-item.active {
+    background-color: #366bb6;
+    color: #fff;
+}
+
+.pagination-custom-item:hover {
+    background-color: #eee;
+}
+
+
+/*-------------------------------------------shopping-user-------------------------------*/
+
+
+.purchases-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.purchases-table th,
+.purchases-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.purchases-table th {
+    background-color: #679ce8;
+    color: #fff;
+}
+
+.purchases-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+/*----------------------------------------------------------quality-----------------------------------------------------*/
+
+
+.quantity-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-right: 45px;
+    cursor: pointer;
+}
+
+.quantity-input input {
+    width: 70px;
+    height: 100%;
+    text-align: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.quantity-input button {
+    width: 40px;
+    height: 80%;
+    border: none;
+    outline: none;
+    background-color: #eee;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.remove-order {
+    cursor: pointer;
+}
+
+
+/*-------------------------------------------------------------faq------------------------------------------------------*/
+
+.faq {
+    margin: 20px;
+}
+
+.question {
+    background-color: #eee;
+    padding: 10px;
+    cursor: pointer;
+    color: #0b0b0b;
+    font-size: 16px;
+}
+
+.answer {
+    display: none;
+    padding: 10px;
+    background-color: #ddd;
+    color: #3353e0;
+    font-size: 13px;
+}
+

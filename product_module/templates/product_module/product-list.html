@@ -1,0 +1,148 @@
+{% extends 'shared/layout.html' %}
+{% load thumbnail %}
+{% load poll_extras %}
+
+{% block title %}
+    فروشگاه
+{% endblock %}
+
+{% block content %}
+    <section class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title">
+                        <h2>فروشگاه</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-b-space ratio_square">
+        <div class="collection-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="collection-content col">
+                        <div class="page-main-content">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="collection-product-wrapper">
+                                        <div class="product-top-filter">
+                                            <div class="row">
+
+                                                <section class="authentication-page">
+                                                    <div class="container">
+                                                        <section class="search-block">
+                                                            <div class="container">
+                                                                <div class="row justify-content-center">
+                                                                    <div class="col-lg-6">
+                                                                        <form class="form-header">
+                                                                            <div class="input-group">
+                                                                                {{ form }}
+                                                                                <div class="input-group-append">
+                                                                                    <button type="submit" class="btn btn-solid"><i
+                                                                                            class="fa fa-search"></i>جستجو
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </section>
+                                                    </div>
+                                                </section>
+
+                                            </div>
+                                        </div>
+                                        <div class="product-wrapper-grid">
+                                            <div class="row">
+                                                {% for product in object_list %}
+                                                    <div class="col-lg-3 col-md-4 col-6 col-grid-box">
+                                                        <div class="product-box">
+                                                            <div class="img-block">
+                                                                <a href="{{ product.get_absolute_url }}"
+                                                                   class="bg-size">
+                                                                    {% thumbnail product.images '970x1000' crop='center' as im %}
+                                                                        <img src="{{ im.url }}"
+                                                                             class=" img-fluid bg-img" alt="">
+                                                                    {% endthumbnail %}
+                                                                </a>
+                                                            </div>
+                                                            <div class="product-info">
+                                                                <div>
+                                                                    <a href="{{ product.get_absolute_url }}">
+                                                                        <h6>{{ product.title }}</h6></a>
+                                                                    {% if product.price2 %}
+                                                                        <h5>{{ product.price2 | three_digits_currency }} تومان</h5>
+                                                                        <del>{{ product.price1 | three_digits_currency }}</del>
+                                                                    {% else %}
+                                                                        <h5>{{ product.price1 | three_digits_currency }} تومان</h5>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="addtocart_box">
+                                                                <div class="addtocart_detail">
+                                                                    <div>
+                                                                        <div class="color">
+                                                                            <h5>رنگ</h5>
+                                                                            <ul class="color-variant">
+                                                                                {% for color in product.color %}
+                                                                                    <li>{{ product.color }}</li>
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="size">
+                                                                            <h5>اندازه</h5>
+                                                                            <ul class="size-box">
+                                                                                <li class="active">xs</li>
+                                                                                <li>s</li>
+                                                                                <li>m</li>
+                                                                                <li>l</li>
+                                                                                <li>xl</li>
+                                                                            </ul>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="close-cart">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+
+                                            </div>
+                                        </div>
+                                        <br><br>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+
+                                                <div class="pagination-custom">
+                                                    {% if page_obj.has_previous %}
+                                                    <a href="?page={{ page_obj.previous_page_number }}" class="pagination-custom-item">&laquo;</a>
+                                                    {% endif %}
+                                                    {% for pageNumber in paginator.page_range %}
+                                                    <a href="?page={{ pageNumber }}"
+                                                       class="{% if page_obj.number == pageNumber %} pagination-custom-item active {% endif %}">{{ pageNumber }}</a>
+                                                    {% endfor %}
+
+                                                {% if page_obj.has_next %}
+                                                    <a href="?page={{ page_obj.next_page_number }}" class="pagination-custom-item">&raquo;</a>
+                                                {% endif %}
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

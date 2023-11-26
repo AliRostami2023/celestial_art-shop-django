@@ -1,0 +1,22 @@
+{% load render_partial %}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="bigboost">
+    <meta name="keywords" content="bigboost">
+    <meta name="author" content="bigboost">
+    <title>{% block title %}{% endblock %}</title>
+    {% include 'shared/header-refrence.html' %}
+</head>
+<body class="rtl">
+{% render_partial 'home_module.views.site_header_component' %}
+{% block content %}{% endblock %}
+{% render_partial 'home_module.views.site_footer_component' %}
+{% include 'shared/footer-refrence.html' %}
+</body>
+</html>
+

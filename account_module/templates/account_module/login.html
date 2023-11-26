@@ -1,0 +1,47 @@
+{% extends 'shared/layout.html' %}
+
+
+{% block title %}
+    ورود به حساب کاربری
+{% endblock %}
+
+
+{% block content %}
+    <section class="login-page section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3 class="title">ورود</h3>
+                    <div class="theme-card">
+                        <form method="post" class="theme-form form-control">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="email">ایمیل :</label>
+                                {{ login_form.email }}
+                            </div>
+                            <div class="form-group">
+                                <label for="review">رمز عبور :</label>
+                                {{ login_form.password }}
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-solid">ورود</button>
+                            </div>
+
+                                <a href="{% url 'forget-pass-page' %}"><label style="color: #2e62b9;cursor: pointer">کلمه
+                                    عبور را فراموش کرده اید ؟</label></a>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6 right-login">
+                    <h3 class="title">کاربر جدید</h3>
+                    <div class="theme-card authentication-right">
+                        <h6 class="title-font">ساخت اکانت جدید</h6>
+                        <p>برای یک حساب کاربری رایگان در فروشگاه ما ثبت نام کنید. ثبت نام سریع و آسان است. این امکان را
+                            به شما می دهد تا بتوانید از فروشگاه ما سفارش دهید. برای شروع خرید روی ثبت نام کلیک کنید.</p>
+                        <a href="{% url 'register-page' %}" class="btn btn-solid">ساخت حساب کاربری</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'shared/layout.html' %}
+{% load render_partial %}
+{% load poll_extras %}
+
+
+{% block title %}
+    خریدهای شما
+{% endblock %}
+
+
+{% block content %}
+    <section class="register-page section-b-space">
+        <div class="container">
+            <div class="row">
+                {% render_partial 'dashboard_user.views.menu_dashboard' %}
+                <div class="col-lg-9">
+                    <table class="purchases-table">
+                        <thead>
+                        <tr>
+                            <th>شناسه سبد</th>
+                            <th>تاریخ خرید</th>
+                            <th>کد رهگیری پستی</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in object_list %}
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.payment_date | show_jalali_date }}</td>
+                                <td>{{ order.postal_tracking_code }}</td>
+                                <td>
+                                    <a href="{% url 'detail-shopping-user-page' order_id=order.id %}" class="btn btn-success">جزییات خرید</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+

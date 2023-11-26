@@ -1,0 +1,59 @@
+<!-- footer section start -->
+{% load thumbnail %}
+
+
+<hr>
+<footer>
+    <div class="footer-section">
+        <div class="container">
+            <div class="row section-t-space section-b-space">
+                <div class="col-xl-4 col-lg-4 about-section">
+                    <div class="footer-title footer-mobile-title">
+                        <h4>درباره ما</h4>
+                    </div>
+                    <div class="footer-content">
+                        <div class="footer-logo">
+                            {% thumbnail site_setting.site_logo '175x53' crop='center' as im %}
+                                <img src="{{ im.url }}" alt="">
+                            {% endthumbnail %}
+                        </div>
+                        <p>
+                            {{ site_setting.about_us_text }}
+                        </p>
+                    </div>
+                </div>
+                {% for link_box in footer_link_box %}
+                    <div class="col-lg-4 footer-link">
+                        <div>
+                            <div class="footer-title">
+                                <h4>{{ link_box.title }}</h4>
+                            </div>
+                            <div class="footer-content">
+                                <ul>
+                                    {% for link in link_box.footerlink_set.all %}
+                                        <li><a href="#">{{ link.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    <div class="sub-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 col-md-6 col-sm-12">
+                    <div class="footer-end">
+                        <p style="text-align: center"><i class="fa fa-copyright" aria-hidden="true"></i>
+                        {{ site_setting.copy_right }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer section end -->

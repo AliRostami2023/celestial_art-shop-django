@@ -1,0 +1,48 @@
+{% extends 'shared/layout.html' %}
+{% load render_partial %}
+{% load thumbnail %}
+{% load poll_extras %}
+
+
+{% block title %}
+   جزییات خرید
+{% endblock %}
+
+
+{% block content %}
+    <section class="register-page section-b-space">
+        <div class="container">
+            <div class="row">
+                {% render_partial 'dashboard_user.views.menu_dashboard' %}
+                <div class="col-lg-9">
+                    <table class="purchases-table">
+                        <thead>
+                        <tr>
+                            <th>عکس محصول</th>
+                            <th>نام محصول</th>
+                            <th>تعداد</th>
+                            <th>قیمت نهایی</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for detail in order.orderdetail_set.all %}
+                            <tr>
+                                <td>{% thumbnail detail.product.images '50x50' crop='center' as im %}
+                                    <img src="{{ im.url }}" alt="">
+                                    {% endthumbnail %}
+                                </td>
+                                <td>{{ detail.product.title | truncatewords:3 }}</td>
+                                <td>{{ detail.count }}</td>
+                                <td>
+                                    {{ detail.final_price | three_digits_currency }} تومان
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

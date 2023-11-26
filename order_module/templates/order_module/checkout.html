@@ -1,0 +1,80 @@
+{% extends 'shared/layout.html' %}
+
+
+{% block title %}
+    ارسال مشخصات
+{% endblock %}
+
+
+{% block content %}
+    <section class="section-b-space">
+        <div class="container">
+            <div class="checkout-page">
+                <div class="checkout-form">
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12 col-xs-12">
+                                <div class="checkout-title">
+                                    <h3>جزئیات فاکتور</h3></div>
+                                <div class="row check-out">
+                                    {% csrf_token %}
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">نام</div>
+                                        {{ checkout_form.first_name }}
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">نام خانوادگی</div>
+                                        {{ checkout_form.last_name }}
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">شماره همراه</div>
+                                        {{ checkout_form.phone }}
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">استان</div>
+                                        {{ checkout_form.state }}
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">شهر</div>
+                                        {{ checkout_form.city }}
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">کد پستی</div>
+                                        {{ checkout_form.zipcode }}
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">آدرس کامل</div>
+                                        {{ checkout_form.address }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-12 col-xs-12">
+                                <div class="checkout-details">
+                                    <div class="order-box">
+                                        <div class="title-box">
+                                            <div>مجموع
+                                                <span>محصول</span>
+                                            </div>
+                                        </div>
+                                        <ul class="qty">
+                                            {% for detail in order.orderdetail_set.all %}
+                                            <li>{{ detail.get_total_price }} تومان<span>{{ detail.product.title | truncatewords:3 }} {{ detail.count }}****</span></li>
+                                            {% endfor %}
+
+                                        </ul>
+                                        <ul class="total">
+                                            <li> {{ sum }} تومان<span class="count">مجموع</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="payment-box">
+                                        <button type="submit" class="btn btn-success text-end">ثبت سفارش</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
